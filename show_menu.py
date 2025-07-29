@@ -1,4 +1,4 @@
-#printing Menu with function
+#------------Printing Menu---------------
 def show_menu():
     print("\n--- Student Progress Tracker ---")
     print("1. Add Student")
@@ -26,7 +26,7 @@ def add_student():
         file.write(f"{name}, {grade}\n")
     print(f"Student {name} added successfully!")
 
-# View students information
+# -----------------View students information--------------------
 def view_students():
     try:
         with open('students.txt', 'r') as file:
@@ -60,13 +60,34 @@ def view_students():
     except FileNotFoundError:
         print("No student records found. Please add some students first.")
 
+#----------------Delete Student information----------------------
+def delete_student():
+    name_to_delete = input("Enter the name of the student to delete: ")
+    
+    try:
+        # Read all lines from the file
+        with open('students.txt', 'r') as file:
+            students = file.readlines()
 
+        # Check if the student exists
+        student_found = False
+        with open('students.txt', 'w') as file:
+            for student in students:
+                name, grade = student.strip().split(', ')
+                if name.lower() != name_to_delete:
+                    file.write(student)  # Write back all students except the one to delete
+                else:
+                    student_found = True
 
+        if student_found:
+            print(f"Student {name_to_delete} deleted successfully.")
+        else:
+            print(f"No student found with the name {name_to_delete}.")
+    
+    except FileNotFoundError:
+        print("No student records found. Please add some students first.")
 
-
-
-
-
+#-----------------main Funciton-----------------------
 def main():
     while True:
         show_menu()
