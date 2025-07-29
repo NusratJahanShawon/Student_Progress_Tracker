@@ -6,11 +6,12 @@ def show_menu():
     print("3. Delete a Student")
     print("4. Exit")
 
-# Add student and save to file function
+# -----------Add student and save in file----------------------
 def add_student():
     name = input("Enter student's name: ")
 
     # Ensuring the user enters a valid grade
+    # By using try & except it prevents the program from crashing and lets the user try again.
     while True:
         try:
             grade = float(input("Enter student's grade: "))
@@ -29,13 +30,15 @@ def add_student():
 # -----------------View students information--------------------
 def view_students():
     try:
+        # Opening and reading the file
         with open('students.txt', 'r') as file:
             students = file.readlines()
 
         if not students:
             print("No students found.")
             return
-
+        
+        # Initialize variables 
         total_grade = 0
         highest_grade = float('-inf')
         lowest_grade = float('inf')
@@ -63,7 +66,6 @@ def view_students():
 #----------------Delete Student information----------------------
 def delete_student():
     name_to_delete = input("Enter the name of the student to delete: ")
-    
     try:
         # Read all lines from the file
         with open('students.txt', 'r') as file:
@@ -104,7 +106,5 @@ def main():
             break
         else:
             print("Invalid choice. Please try again.")
-
-
 
 main()
